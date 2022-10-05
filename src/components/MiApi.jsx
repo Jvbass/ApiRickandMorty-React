@@ -1,47 +1,41 @@
-import { useState, useEffect } from "react"; // importamos los hooks que usaremos de la libreria de react
+import { useState, useEffect } from "react"; 
 
 const MiApi = () => {
   const [allData, setAllData] = useState([]);
-  const [data, setData] = useState([]); //definimos dos versiones de la data para poder resetear a la data original para mostrar y una data filtrada o modificada, esto para no redundar en filtro sobre filtros
+  const [data, setData] = useState([]);
 
-  const [value, setValue] = useState(""); //guaradmos lo que ingresemos en un estado value
-
-  useEffect(() => {
-    getData(); //llamamos la data desde la api cuando el componente carge con array[]
-  }, []);
+  const [value, setValue] = useState(""); 
 
   useEffect(() => {
-    //cuando cambie el valor del input llamamos a la funcion filterData
+    getData();
+  }, [])
+
+  useEffect(() => {
     filterData();
-  }, [value]);
+  }, [value])
 
   const getData = () => {
-    //funcion declarada donde obtendremos la data de la api
+  
     const url = "https://rickandmortyapi.com/api/character";
-    fetch(url) //hacemos un fetch a la url de rickandmortyapi
-      .then((res) => res.json()) //la respuesta la convertimos a formato json array de objetos
+    fetch(url) 
+      .then((res) => res.json()) 
       .then((json) => {
-        setAllData(json.results); //la respuesta la ingresamos a seteamos en filtrado y data
-        setData(json.results); //por formato de la api llamamos a la propiedad results
+        setAllData(json.results); 
+        setData(json.results); 
       })
       .catch((e) =>
         alert("Error de conexion con la API, intente denuevo mas tarde", e)
-      ); //si recibimos un error lo devolvemos por un alert
+      ); 
   };
 
-  const filterData = () => {
-    const buscar = value.toLowerCase(); //definimos la palabra a buscar como el valor del input convertido a minusculas
+  const filterData = () => { 
+
+    const buscar = value.toLowerCase();
     const filtrado = allData.filter((personaje) => {
-      //con metodo filter filtramos allData segun  lo ingresado en input
-      const name = personaje.name.toLowerCase(); //definimos name para convertir los nombre de los peronsajes a lowercase
-      return name.includes(buscar); //retornamos los names que incluyan los paramentro de buscar
+      const name = personaje.name.toLowerCase(); 
+      return name.includes(buscar); 
     });
-    setData(filtrado); // definimos la lista con la data fitrada
-  };
-
-  const sortData = (data)=> { //funcion para ordenar data segun cantidad de episodios, recibe data ya que la podremos usar cuando la data este filtrada o con toda la data
-     
-
+    setData(filtrado); 
   }
 
   return (
@@ -57,11 +51,6 @@ const MiApi = () => {
             placeholder="Nombre de personaje"
             onChange={(e) => setValue(e.target.value)}
           />
-          {/* hacemos hook del input para que cuando cambie ejecutamos con useffect la funcion que filtra la data  */}
-          <select >
-            <option value="Human">Humano</option>
-            <option value="Alien">Alien</option>
-          </select>
         </div>
       </fieldset>
       <h3 className="descripcion">{`${data.length} Personajes encontrados`}</h3>
