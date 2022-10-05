@@ -1,0 +1,68 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow:ital@1&family=Noto+Sans+Mono:wght@300&display=swap');
+
+:root {
+  --primary: #f91a0e;
+  --secondary: #F2CB05;
+  --light: #fff;
+  --disabled: #59585B;
+  --dark: #3470BF;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+h2 {
+  font-family: 'Barlow', sans-serif;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--secondary);
+  -webkit-text-stroke: .5px var(--primary);
+}
+
+body {
+  font-family: 'Noto Sans Mono', monospace;
+  color-scheme: light dark;
+  color: var(--light);
+  background-color: var(--dark);
+}
+
+main {
+  max-width: 850px;
+  min-height: 100vh;
+  margin: 6rem auto 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@media (prefers-color-scheme: light) {
+  body {
+    color: var(--dark);
+    background-color: var(--light);
+  }
+
+  h2 {
+    -webkit-text-stroke: .5px var(--dark);
+  }
+
+  input {
+    background-color: var(--dark);
+    color: var(--light);
+  }
+  input::placeholder{
+    color: var(--light);
+  }
+
+  select {
+    background-color: var(--dark);
+    color: var(--light);
+  }
+
+  table th {
+    background-color: var(--primary);
+    color: var(--light);
+  }
+}
